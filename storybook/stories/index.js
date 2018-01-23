@@ -8,7 +8,7 @@ import { linkTo } from '@storybook/addon-links';
 import Button from './Button';
 import CenterView from './CenterView';
 import Welcome from './Welcome';
-import { OpacityAnimations, TransformAnimations } from './TimingAnimations';
+import { OpacityAnimations, TransformAnimations, ScaleAnimations } from './TimingAnimations';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -28,4 +28,5 @@ storiesOf('Button', module)
 storiesOf('Timing animations', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
   .add('animating opacity', () => <OpacityAnimations />)
-  .add('animating translateY', () => <TransformAnimations />);
+  .add('animating translateY', () => <TransformAnimations />)
+  .add('animating scale', () => <ScaleAnimations />);

@@ -56,6 +56,32 @@ export class TransformAnimations extends PureComponent {
   }
 }
 
+/*
+ * Animating scale with timing.
+*/
+export class ScaleAnimations extends PureComponent {
+  state = {
+    animation: new Animated.Value(1),
+  };
+  _startAnimation = () => {
+    Animated.timing(this.state.animation, {
+      toValue: 3,
+      duration: 900,
+    }).start(() => {
+      this.state.animation.setValue(1);
+    });
+  };
+  render() {
+    const { animation } = this.state;
+    const scaleStyles = { transform: [{ scale: animation }] };
+    return (
+      <TouchableWithoutFeedback onPress={this._startAnimation}>
+        <Animated.View style={[styles.container, styles.wrap1, scaleStyles]} />
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
 // Styles
 export const styles = StyleSheet.create({
   container: {
