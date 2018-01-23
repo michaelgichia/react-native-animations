@@ -82,6 +82,39 @@ export class ScaleAnimations extends PureComponent {
   }
 }
 
+/*
+ * Animating width and height with timing.
+*/
+export class WidthHeightAnimations extends PureComponent {
+  state = {
+    animationWidth: new Animated.Value(200),
+    animationHeight: new Animated.Value(200),
+  };
+  _startAnimation = () => {
+    Animated.timing(this.state.animationWidth, {
+      toValue: 400,
+      duration: 600,
+    }).start(() => {
+      Animated.timing(this.state.animationHeight, {
+        toValue: 300,
+        duration: 300,
+      }).start(() => {
+        this.state.animationWidth.setValue(200);
+        this.state.animationHeight.setValue(200);
+      });
+    });
+  };
+  render() {
+    const { animationHeight, animationWidth } = this.state;
+    const viewStyles = { width: animationWidth, height: animationHeight };
+    return (
+      <TouchableWithoutFeedback onPress={this._startAnimation}>
+        <Animated.View style={[viewStyles, styles.wrap1]} />
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
 // Styles
 export const styles = StyleSheet.create({
   container: {
