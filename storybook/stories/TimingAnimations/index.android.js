@@ -115,13 +115,52 @@ export class WidthHeightAnimations extends PureComponent {
   }
 }
 
+/*
+ * Animating View with absolute position.
+*/
+export class AbsolutePosition extends PureComponent {
+  state = {
+    animation: new Animated.Value(0),
+  };
+  _startAnimation = () => {
+    Animated.timing(this.state.animation, {
+      toValue: 300,
+      duration: 600,
+    }).start(() => {
+      Animated.timing(this.state.animation, {
+        toValue: 0,
+        duration: 300,
+      }).start();
+    });
+  };
+  render() {
+    const { animation } = this.state;
+    const topStyles = { top: animation };
+    return (
+      <TouchableWithoutFeedback onPress={this._startAnimation}>
+        <View style={styles.container1}>
+          <Animated.View style={[styles.container, topStyles, styles.wrap1, styles.wrap2]} />
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
 // Styles
 export const styles = StyleSheet.create({
   container: {
     width: 200,
     height: 200,
   },
+  container1: {
+    width: 320,
+    height: 450,
+    position: 'relative',
+  },
   wrap1: {
     backgroundColor: 'cyan',
+  },
+  wrap2: {
+    position: 'absolute',
   },
 });
