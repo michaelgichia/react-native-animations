@@ -17,6 +17,7 @@ import {
   WidthHeightInterpolation,
   RotationAnimation,
 } from './TimingAnimations';
+import SpringAnimation from './SpringAnimation';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -42,3 +43,7 @@ storiesOf('Timing animations', module)
   .add('animating top, right, bottom and left', () => <AbsolutePosition />)
   .add('interpolating width and height', () => <WidthHeightInterpolation />)
   .add('rotation animation', () => <RotationAnimation />);
+
+storiesOf('Spring animations', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('with scale', () => <SpringAnimation />);
