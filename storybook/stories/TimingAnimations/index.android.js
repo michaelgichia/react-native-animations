@@ -193,9 +193,46 @@ export class WidthHeightInterpolation extends PureComponent {
 
     return (
       <TouchableWithoutFeedback onPress={this._startAnimation}>
-        <View style={styles.container1}>
-          <Animated.View style={[widthStyles, heightStyles, styles.wrap1]} />
-        </View>
+        <Animated.View style={[widthStyles, heightStyles, styles.wrap1]} />
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
+/*
+  * Animation with rotation.
+  *
+*/
+
+export class RotationAnimation extends PureComponent {
+  state = {
+    animation: new Animated.Value(0),
+  };
+  _startAnimation = () => {
+    Animated.timing(this.state.animation, {
+      toValue: 1,
+      duration: 600,
+    }).start(() => {
+      this.state.animation.setValue(0);
+    });
+  };
+
+  render() {
+    const { animation } = this.state;
+    const rotateStyles = {
+      transform: [
+        {
+          rotate: animation.interpolate({
+            inputRange: [0, 1],
+            outputRange: ['0deg', '1080deg'],
+          }),
+        },
+      ],
+    };
+
+    return (
+      <TouchableWithoutFeedback onPress={this._startAnimation}>
+        <Animated.View style={[container, rotateStyles, styles.wrap1]} />
       </TouchableWithoutFeedback>
     );
   }
@@ -219,3 +256,5 @@ export const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+export const { container, container1, wrap1, wrap2 } = styles;
