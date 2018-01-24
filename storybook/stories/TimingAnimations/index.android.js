@@ -146,6 +146,61 @@ export class AbsolutePosition extends PureComponent {
   }
 }
 
+/*
+ * Animating width and height.
+*/
+export class WidthHeightInterpolation extends PureComponent {
+  state = {
+    animationWidth: new Animated.Value(0),
+    animationHeight: new Animated.Value(0),
+  };
+  _startAnimation = () => {
+    Animated.sequence([
+      Animated.timing(this.state.animationWidth, {
+        toValue: 1,
+        duration: 600,
+      }).start(() => {
+        Animated.timing(this.state.animationWidth, {
+          toValue: 0,
+          duration: 300,
+        }).start();
+      }),
+      Animated.timing(this.state.animationHeight, {
+        toValue: 1,
+        duration: 600,
+      }).start(() => {
+        Animated.timing(this.state.animationHeight, {
+          toValue: 0,
+          duration: 600,
+        }).start();
+      }),
+    ]);
+  };
+  render() {
+    const { animationWidth, animationHeight } = this.state;
+    const widthStyles = {
+      width: animationWidth.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['30%', '100%'],
+      }),
+    };
+    const heightStyles = {
+      height: animationHeight.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['20%', '100%'],
+      }),
+    };
+
+    return (
+      <TouchableWithoutFeedback onPress={this._startAnimation}>
+        <View style={styles.container1}>
+          <Animated.View style={[widthStyles, heightStyles, styles.wrap1]} />
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  }
+}
+
 // Styles
 export const styles = StyleSheet.create({
   container: {

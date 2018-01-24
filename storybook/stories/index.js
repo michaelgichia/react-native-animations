@@ -14,6 +14,7 @@ import {
   ScaleAnimations,
   WidthHeightAnimations,
   AbsolutePosition,
+  WidthHeightInterpolation,
 } from './TimingAnimations';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -37,4 +38,5 @@ storiesOf('Timing animations', module)
   .add('animating translateY', () => <TransformAnimations />)
   .add('animating scale', () => <ScaleAnimations />)
   .add('animating width and height', () => <WidthHeightAnimations />)
-  .add('animating top, right, bottom and left', () => <AbsolutePosition />);
+  .add('animating top, right, bottom and left', () => <AbsolutePosition />)
+  .add('interpolating width and height', () => <WidthHeightInterpolation />);
