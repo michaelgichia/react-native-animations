@@ -18,6 +18,8 @@ import {
   RotationAnimation,
 } from './TimingAnimations';
 import SpringAnimation from './SpringAnimation';
+import LoopAnimation from './LoopAnimation';
+import Event from './Event';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -47,3 +49,11 @@ storiesOf('Timing animations', module)
 storiesOf('Spring animations', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
   .add('with scale', () => <SpringAnimation />);
+
+storiesOf('Loop animations', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('with rotation', () => <LoopAnimation />);
+
+storiesOf('Events animations', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('with background-color', () => <Event />);
