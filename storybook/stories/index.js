@@ -22,6 +22,7 @@ import LoopAnimation from './LoopAnimation';
 import Event from './Event';
 import PanResponderAnimation from './PanResponderAnimation';
 import StaggerHeads from './StaggerHeads';
+import SequenceAnimation from './Sequence';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -65,3 +66,5 @@ storiesOf('Pan Responder animations', module).add('with background-color', () =>
 ));
 
 storiesOf('Stagger heads animations', module).add('with background-color', () => <StaggerHeads />);
+
+storiesOf('Sequence animations', module).add('with background-color', () => <SequenceAnimation />);
