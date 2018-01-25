@@ -20,6 +20,8 @@ import {
 import SpringAnimation from './SpringAnimation';
 import LoopAnimation from './LoopAnimation';
 import Event from './Event';
+import PanResponderAnimation from './PanResponderAnimation';
+import StaggerHeads from './StaggerHeads';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -57,3 +59,9 @@ storiesOf('Loop animations', module)
 storiesOf('Events animations', module)
   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
   .add('with background-color', () => <Event />);
+
+storiesOf('Pan Responder animations', module).add('with background-color', () => (
+  <PanResponderAnimation />
+));
+
+storiesOf('Stagger heads animations', module).add('with background-color', () => <StaggerHeads />);
