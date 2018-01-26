@@ -9,6 +9,7 @@
     "devtools": "react-devtools"
   },
   "dependencies": {
+    "clamp": "^1.0.1",
     "pm2": "^2.9.3",
     "react": "16.2.0",
     "react-native": "0.52.1"
