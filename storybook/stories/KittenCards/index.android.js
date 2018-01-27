@@ -31,12 +31,13 @@ export default class KittenCards extends Component {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: this._handlePanResponderMove,
-      onPanResponderRelease: this._handlePanResponderRelease,
+      onPanResponderMove: this._handlePanResponderMove(),
+      onPanResponderRelease: (evt, { dx, vx, vy }) =>
+        this._handlePanResponderRelease(evt, { dx, vx, vy }),
     });
   }
 
-  _handlePanResponderMove = () => {
+  _handlePanResponderMove = () =>
     Animated.event([
       null,
       {
@@ -44,6 +45,14 @@ export default class KittenCards extends Component {
         dy: this.cardAnimation.y,
       },
     ]);
+
+  _handlePanResponderRelease = (evt, { dx, vx, vy }) => {
+    let velocity = vx < 0 ? clamp(Math.abs(vx), 5, 7) * -1 : clamp(vx, 5, 7);
+    if (Math.abs(dx) > MaxDistance) {
+      this._setCardDecay(velocity, vy);
+    } else {
+      this._setCardSpring();
+    }
   };
 
   _setCardDecay = (velocity, vy) => {
@@ -60,24 +69,15 @@ export default class KittenCards extends Component {
     }).start();
   };
 
-  _handlePanResponderRelease = (evt, { dx, vx, vy }) => {
-    let velocity = vx < 0 ? clamp(Math.abs(vx), 5, 7) * -1 : clamp(vx, 5, 7);
-    if (Math.abs(dx) > MaxDistance) {
-      this._setCardDecay(velocity, vy);
-    } else {
-      this._setCardSpring();
-    }
-  };
-
   _dynamicTiming = (toValue, duration) => {
-    Animated.timing(this.opacity, {
+    return Animated.timing(this.opacity, {
       toValue,
       duration,
     });
   };
 
   _dynamicSpring = (toValue, duration) => {
-    Animated.spring(this.nextItem, {
+    return Animated.spring(this.nextItem, {
       toValue,
       duration,
     });
@@ -97,7 +97,7 @@ export default class KittenCards extends Component {
   };
 
   _handleNextTransition = () => {
-    Animated.parallel([this._dynamicTiming(0, 300), this._dynamicSpring(0, 300)]).start(
+    Animated.parallel([this._dynamicTiming(0, 300), this._dynamicSpring(1, 300)]).start(
       this._resetCats,
     );
   };
