@@ -12,7 +12,11 @@ const catsObj = [
   { id: 'catOne', image: Cat1, desc: 'Cute One' },
   { id: 'catTwo', image: Cat2, desc: 'Cute Two' },
   { id: 'catThree', image: Cat3, desc: 'Cute Three' },
-  { id: 'catFive', image: Cat4, desc: 'Cute Four' },
+  { id: 'catFive', image: Cat4, desc: 'Cute Five' },
+  { id: 'catFour', image: Cat1, desc: 'Cute Four' },
+  { id: 'catSix', image: Cat2, desc: 'Cute Six' },
+  { id: 'catSeven', image: Cat3, desc: 'Cute Seven' },
+  { id: 'catEight', image: Cat4, desc: 'Cute Eight' },
 ];
 
 export default class KittenCards extends Component {
@@ -27,55 +31,75 @@ export default class KittenCards extends Component {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([
-        null,
-        {
-          dx: this.cardAnimation.x,
-          dy: this.cardAnimation.y,
-        },
-      ]),
+      onPanResponderMove: this._handlePanResponderMove,
       onPanResponderRelease: this._handlePanResponderRelease,
     });
   }
 
+  _handlePanResponderMove = () => {
+    Animated.event([
+      null,
+      {
+        dx: this.cardAnimation.x,
+        dy: this.cardAnimation.y,
+      },
+    ]);
+  };
+
+  _setCardDecay = (velocity, vy) => {
+    Animated.decay(this.cardAnimation, {
+      velocity: { x: velocity, y: vy },
+      deceleration: 0.98,
+    }).start(this._handleNextTransition);
+  };
+
+  _setCardSpring = () => {
+    Animated.spring(this.cardAnimation, {
+      toValue: { x: 0, y: 0 },
+      friction: 4,
+    }).start();
+  };
+
   _handlePanResponderRelease = (evt, { dx, vx, vy }) => {
     let velocity = vx < 0 ? clamp(Math.abs(vx), 5, 7) * -1 : clamp(vx, 5, 7);
-
     if (Math.abs(dx) > MaxDistance) {
-      Animated.decay(this.cardAnimation, {
-        velocity: { x: velocity, y: vy },
-        deceleration: 0.98,
-      }).start(this._handleNextTransition);
+      this._setCardDecay(velocity, vy);
     } else {
-      Animated.spring(this.cardAnimation, {
-        toValue: { x: 0, y: 0 },
-        friction: 4,
-      }).start();
+      this._setCardSpring();
     }
   };
 
-  _handleNextTransition = () => {
-    Animated.parallel([
-      Animated.timing(this.opacity, {
-        toValue: 0,
-        duration: 300,
-      }),
-      Animated.spring(this.nextItem, {
-        toValue: 1,
-        duration: 300,
-      }),
-    ]).start(() => {
-      this.setState(
-        state => ({
-          cats: state.cats.slice(1),
-        }),
-        () => {
-          this.nextItem.setValue(0.9);
-          this.opacity.setValue(1);
-          this.cardAnimation.setValue({ x: 0, y: 0 });
-        },
-      );
+  _dynamicTiming = (toValue, duration) => {
+    Animated.timing(this.opacity, {
+      toValue,
+      duration,
     });
+  };
+
+  _dynamicSpring = (toValue, duration) => {
+    Animated.spring(this.nextItem, {
+      toValue,
+      duration,
+    });
+  };
+
+  _resetCats = () => {
+    this.setState(
+      state => ({
+        cats: state.cats.slice(1),
+      }),
+      () => {
+        this.nextItem.setValue(0.9);
+        this.opacity.setValue(1);
+        this.cardAnimation.setValue({ x: 0, y: 0 });
+      },
+    );
+  };
+
+  _handleNextTransition = () => {
+    Animated.parallel([this._dynamicTiming(0, 300), this._dynamicSpring(0, 300)]).start(
+      this._resetCats,
+    );
   };
 
   render() {
