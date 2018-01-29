@@ -27,6 +27,7 @@ import KittenCards from './KittenCards';
 import FabBtn from './FabBtn';
 import ProgressBtn from './ProgressBtn';
 import NotificationSystem from './NotificationSystem';
+import Questionnares from './Questionnares';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -80,3 +81,5 @@ storiesOf('Animating cat images', module).add('with pan responder', () => <Kitte
 storiesOf('Notification system animations', module).add('with react-native', () => (
   <NotificationSystem />
 ));
+
+storiesOf('Animated questionnares', module).add('with state hack', () => <Questionnares />);
