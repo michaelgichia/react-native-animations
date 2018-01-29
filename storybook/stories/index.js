@@ -26,6 +26,7 @@ import SequenceAnimation from './Sequence';
 import KittenCards from './KittenCards';
 import FabBtn from './FabBtn';
 import ProgressBtn from './ProgressBtn';
+import NotificationSystem from './NotificationSystem';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -76,5 +77,6 @@ storiesOf('Sequence animations', module).add('with background-color', () => <Seq
 
 storiesOf('Animating cat images', module).add('with pan responder', () => <KittenCards />);
 
-// storiesOf('Floating action btn', module)
-//   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+storiesOf('Notification system animations', module).add('with react-native', () => (
+  <NotificationSystem />
+));
