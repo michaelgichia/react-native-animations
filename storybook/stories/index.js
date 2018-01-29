@@ -24,6 +24,7 @@ import PanResponderAnimation from './PanResponderAnimation';
 import StaggerHeads from './StaggerHeads';
 import SequenceAnimation from './Sequence';
 import KittenCards from './KittenCards';
+import FabBtn from './FabBtn';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -71,3 +72,7 @@ storiesOf('Stagger heads animations', module).add('with background-color', () =>
 storiesOf('Sequence animations', module).add('with background-color', () => <SequenceAnimation />);
 
 storiesOf('Animating cat images', module).add('with pan responder', () => <KittenCards />);
+
+storiesOf('Floating action btn', module)
+  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
+  .add('with text', () => <FabBtn />);
