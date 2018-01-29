@@ -25,6 +25,7 @@ import StaggerHeads from './StaggerHeads';
 import SequenceAnimation from './Sequence';
 import KittenCards from './KittenCards';
 import FabBtn from './FabBtn';
+import ProgressBtn from './ProgressBtn';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -35,6 +36,8 @@ storiesOf('Button', module)
       <Text>Hello Button</Text>
     </Button>
   ))
+  .add('with floating action button', () => <FabBtn />)
+  .add('with animated background', () => <ProgressBtn />)
   .add('with some emoji', () => (
     <Button onPress={action('clicked-emoji')}>
       <Text>😀 😎 👍 💯</Text>
@@ -73,6 +76,5 @@ storiesOf('Sequence animations', module).add('with background-color', () => <Seq
 
 storiesOf('Animating cat images', module).add('with pan responder', () => <KittenCards />);
 
-storiesOf('Floating action btn', module)
-  .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-  .add('with text', () => <FabBtn />);
+// storiesOf('Floating action btn', module)
+//   .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
