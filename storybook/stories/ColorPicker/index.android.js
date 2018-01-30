@@ -49,7 +49,7 @@ export default class ColorPicker extends PureComponent {
     const colorStyle = { backgroundColor: color };
 
     const scaleXInterpolate = animation.interpolate({
-      inputRange: [0, 0.5, 1],
+      inputRange: [0, 0.8, 1],
       outputRange: [0, 0, 1],
     });
 
@@ -175,21 +175,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonStyles: { marginTop: 50 },
+  buttonStyles: {
+    marginTop: 50,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+  },
   rowWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    minWidth: '50%',
-    backgroundColor: '#FFF',
-    borderRadius: 20,
-    elevation: 6,
+    minWidth: 300,
+    borderRadius: 150,
+    elevation: 3,
     paddingVertical: 4,
+    height: 80,
     paddingHorizontal: 8,
+    backgroundColor: '#ffffff',
   },
   colorBall: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
   row: {
     flex: 1,
@@ -203,7 +208,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 5,
   },
-  input: { flex: 1 },
+  input: { flex: 1, paddingVertical: 8 },
   okayButton: {
     borderRadius: 20,
     height: '100%',
