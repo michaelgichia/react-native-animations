@@ -28,6 +28,7 @@ import FabBtn from './FabBtn';
 import ProgressBtn from './ProgressBtn';
 import NotificationSystem from './NotificationSystem';
 import Questionnares from './Questionnares';
+import ColorPicker from './ColorPicker';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -83,3 +84,5 @@ storiesOf('Notification system animations', module).add('with react-native', () 
 ));
 
 storiesOf('Animated questionnares', module).add('with state hack', () => <Questionnares />);
+
+storiesOf('Animated color picker', module).add('with awesome animation', () => <ColorPicker />);
